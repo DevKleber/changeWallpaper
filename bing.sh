@@ -1,4 +1,4 @@
-# wget -O /tmp/wallpaper.jpg "http://www.bing.com/$(wget -q -O- https://binged.it/2ZButYc | sed -e 's/<[^>]*>//g' | cut -d / -f2 | cut -d \& -f1)"
+wget -O /tmp/wallpaper.jpg "http://www.bing.com/$(wget -q -O- https://binged.it/2ZButYc | sed -e 's/<[^>]*>//g' | cut -d / -f2 | cut -d \& -f1)"
 gsettings set org.gnome.desktop.background picture-uri-dark "file:///tmp/wallpaper.jpg"
 # gsettings set org.gnome.desktop.background picture-uri-dark "file:///$PIC"
 
