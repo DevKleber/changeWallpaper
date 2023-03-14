@@ -1,5 +1,6 @@
 # aleatorio=$(($RANDOM%1000))
-aleatorio=""
+# aleatorio=""
+aleatorio=$(date +%d%m%Y)
 nameImage="wallpaper$aleatorio.jpg"
 
 # export DBUS_SESSION_BUS_ADDRESS environment variable
@@ -10,3 +11,7 @@ wget -O /tmp/$nameImage "http://www.bing.com/$(wget -q -O- https://binged.it/2ZB
 
 # gsettings set org.gnome.desktop.background picture-uri "file:///tmp/$nameImage"
 gsettings set org.gnome.desktop.background picture-uri "file:///tmp/$nameImage"
+
+# Windows
+# Move file to windows folder. 
+cp /tmp/$nameImage /mnt/c/Users/KleberdeSouzadasChag\/Pictures\/Wallpaper\/wallpapers\/paisagens\/bing
