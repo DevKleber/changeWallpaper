@@ -1,34 +1,33 @@
 #!/bin/bash
 
-# Function to extract the image URL from the Bing RSS feed
-get_image_url() {
-    local rss_url="https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US"
-    local image_url=$(curl -s "$rss_url" | grep -oPm1 "(?<=<url>)[^<]+")
-    echo "https://www.bing.com$image_url"
-}
 
-# Function to extract the image description from the Bing RSS feed
-get_image_description() {
-    local rss_url="https://www.bing.com/HPImageArchive.aspx?format=xml&idx=0&n=1&mkt=en-US"
-    local image_description=$(curl -s "$rss_url" | grep -oPm1 "(?<=<title>)[^<]+")
-    echo "$image_description"
-}
+# Faça o download da página
+curl -s "https://www.bing.com/?cc=br" > pagina.html
 
-# Function to download the image and save it to a file
-download_image() {
-    local image_url=$(get_image_url)
-    local image_description=$(get_image_description)
-    local file_name="$(date +"%Y-%m-%d")_bing_image.jpg"
+# Extrair a descrição
+description=$(grep -o 'Description":"[^"]*' pagina.html | sed 's/Description":"//')
 
-    echo "Downloading Bing Image of the Day..."
-    echo "Description: $image_description"
-    echo "Image URL: $image_url"
-    echo "Saving as: $file_name"
+# Extrair o URL do wallpaper
+wallpaper=$(grep -o 'Wallpaper":"[^"]*' pagina.html | sed 's/Wallpaper":"//')
 
-    curl -s "$image_url" -o "$file_name"
+# Extrair o título
+title=$(grep -o 'Title":"[^"]*' pagina.html | sed 's/Title":"//' | sed 's/Pesquise com a sua voz!$//')
 
-    echo "Download complete!"
-}
+# # Imprimir os resultados
+# echo "Descrição: $description"
+# echo "Wallpaper: $wallpaper"
+echo "Título: $title"
 
-# Call the download_image function
-download_image
+# Extrair o objeto completo MediaContents
+media_contents=$(grep -o 'MediaContents":\[{[^}]*}' pagina.html)
+echo "$media_contents}}]" > media_contents.json
+
+
+description=$(grep -o 'Description":"[^"]*' media_contents.json | sed 's/Description":"//')
+wallpaper=$(grep -o 'Wallpaper":"[^"]*' media_contents.json | sed 's/Wallpaper":"//')
+title=$(grep -o 'Title":"[^"]*' media_contents.json | sed 's/Title":"//')
+
+
+echo "Descrição: $description"
+echo "Wallpaper: $wallpaper"
+echo "Título: $title"
