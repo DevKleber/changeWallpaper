@@ -1,6 +1,6 @@
 #!/bin/bash
 
-caminho="/home/kleber/shellscripts/changeWallpaper"
+caminho="/home/$USER/shellscripts/changeWallpaper"
 page="https://www.bing.com"
 
 curl -s "$page/?cc=br" > pagina.html

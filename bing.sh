@@ -12,8 +12,8 @@ export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/en
 wget -O /tmp/$nameImage "http://www.bing.com/$(wget -q -O- https://binged.it/2ZButYc | sed -e 's/<[^>]*>//g' | cut -d / -f2 | cut -d \& -f1)"
 
 # gsettings set org.gnome.desktop.background picture-uri "file:///tmp/$nameImage"
-# gsettings set org.gnome.desktop.background picture-uri "file:///tmp/$nameImage"
+gsettings set org.gnome.desktop.background picture-uri "file:///tmp/$nameImage"
 
 # Windows
 # Move file to windows folder. 
-cp /tmp/$nameImage /mnt/c/Users/KleberdeSouzadasChag\/Pictures\/Wallpaper\/wallpapers\/paisagens\/bing
+#cp /tmp/$nameImage /mnt/c/Users/KleberdeSouzadasChag\/Pictures\/Wallpaper\/wallpapers\/paisagens\/bing
